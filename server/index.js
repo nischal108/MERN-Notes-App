@@ -18,6 +18,10 @@ app.use(express.json());
 // Routes
 app.use('/api/v1', allRoutes);
 
+app.get('/api/v1',(req,res)=>{
+  res.send("hello world");
+})
+
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
