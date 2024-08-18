@@ -10,21 +10,27 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        const response = await fetch(
-          import.meta.env.VITE_BASE_URL + "/user/loggedInUserInfo",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
+        const token = localStorage.getItem("token");
+        if (token) {
+          const response = await fetch(
+            `${import.meta.env.VITE_BASE_URL}/user/loggedInUserInfo`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const data = await response.json();
+  
+          if (!data.error) {
+            setUserName(data.fullName);
+            setIsAuthenticated(true);
+          } else {
+            setUserName(null);
+            setIsAuthenticated(false);
           }
-        );
-        const data = await response.json();
-
-        if (!data.error) {
-          setUserName(data.fullName);
-          setIsAuthenticated(true);
         } else {
           setUserName(null);
           setIsAuthenticated(false);
@@ -34,23 +40,18 @@ export const AuthProvider = ({ children }) => {
         setUserName(null);
         setIsAuthenticated(false);
       }
-      finally{
-        setLoading(false);
-      }
+      setLoading(false);
     };
-    const token = localStorage.getItem("token");
-    if(token){
-        fetchCurrentUser();
-    }
+
+    fetchCurrentUser();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ userName, isAuthenticated , loading}}>
+    <AuthContext.Provider value={{ userName, isAuthenticated, loading }}>
       {children}
     </AuthContext.Provider>
   );
 };
-
 
 const useAuthContext = () => {
   return useContext(AuthContext);
