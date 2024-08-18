@@ -21,8 +21,6 @@ Thumbs.db
 
 # Vite
 client/.vite/
-client/vite.config.ts
-client/vite.config.js
 
 # npm
 package-lock.json
