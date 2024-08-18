@@ -1,0 +1,57 @@
+# Node modules
+node_modules/
+
+# Build output
+client/dist/
+server/build/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Log files
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Vite
+client/.vite/
+client/vite.config.ts
+client/vite.config.js
+
+# npm
+package-lock.json
+yarn.lock
+
+# IDE/editor files
+.idea/
+.vscode/
+
+# Miscellaneous
+*.swp
+*.swo
+
+# Server
+server/.env
+server/.env.*
+server/node_modules/
+
+# Client
+client/.env
+client/.env.*
+client/node_modules/
+
+# Ignore coverage reports
+coverage/
+
+# Ignore test results
+*.test.js
+*.test.ts
+
+# Ignore compiled TypeScript files
+*.tsbuildinfo
